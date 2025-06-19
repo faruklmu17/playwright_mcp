@@ -1,113 +1,156 @@
 # Playwright MCP Configuration
 
-A collection of configuration files and step-by-step instructions to help you launch the Playwright MCP server with various supported clients.
+This repository contains everything needed to launch and connect to a working Playwright MCP (Model Context Protocol) server.
 
-## Prerequisites
+## ✅ Overview
 
-* Node.js v18 or newer
-* One of the following MCP-supported clients:
+This setup allows you to automate and inspect web pages using **structured data** instead of screenshots — ideal for LLM-powered tools like Claude, Cursor, and VS Code AI agents.
+
+---
+
+## 🛠️ Prerequisites
+
+* [Node.js](https://nodejs.org/) v18 or newer
+* One of the following MCP-compatible clients:
+
   * VS Code or VS Code Insiders
   * Cursor
-  * Windsurf
   * Claude Desktop
 
-## Repository Contents
+---
 
-* `.vscode/settings.json` — VS Code configuration for launching Playwright MCP
-* `package.json` — Defines dependencies including Playwright
+## 📁 Repository Contents
+
+* `.vscode/settings.json` — VS Code configuration to launch Playwright MCP
+* `package.json` — Includes required MCP dependencies
 * `README.md` — This file
-* `.gitignore` — Recommended ignore rules (e.g., `node_modules/`)
+* `.gitignore` — Basic Node project ignore rules
 
-## Getting Started
+---
 
-1. **Clone the repository:**
+## 🚀 Getting Started
 
-   ```bash
-   git clone https://github.com/your-username/playwright-mcp-config.git
-   cd playwright-mcp-config
-   ```
+### 1. Clone the Repository
 
-2. **Install Dependencies:**
+```bash
+git clone https://github.com/faruklmu17/playwright_mcp.git 
+cd playwright-mcp-config
+```
 
-   This installs Playwright and any other listed dev dependencies.
+### 2. Install Dependencies
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-3. **Launch the MCP Server:**
+This installs all required packages, including `@playwright/mcp`.
 
-   ```bash
-   npx @playwright/mcp@latest
-   ```
+---
 
-   You can add `--help` to see available options:
+### 3. Start the MCP Server
 
-   ```bash
-   npx @playwright/mcp@latest --help
-   ```
+```bash
+npx playwright-mcp --port 3550
+```
 
-4. **MCP Client Configuration (VS Code Example):**
+You should see output like:
 
-   Make sure you have this file in `.vscode/settings.json`:
+```
+MCP Server started
+Web server started
+```
 
-   ```json
-   {
-     "mcpServers": {
-       "playwright": {
-         "command": "npx",
-         "args": [
-           "@playwright/mcp@latest"
-         ]
-       }
-     }
-   }
-   ```
+> You can change the port if needed, e.g. `--port=4000`
 
-   * **command**: How to invoke the MCP server (`npx`)
-   * **args**: Package name and any additional flags
+---
 
-5. **Persistent vs. Isolated Sessions**
+### 4. VS Code MCP Client Configuration
 
-   * **Persistent** (default): Retains the browser profile across sessions.
-   * **Isolated**: Starts a fresh profile each session. Use `--isolated` along with `--storage-state=...` to preserve some session data:
+Add this to your `.vscode/settings.json`:
 
-     ```json
-     {
-       "mcpServers": {
-         "playwright": {
-           "command": "npx",
-           "args": [
-             "@playwright/mcp@latest",
-             "--isolated",
-             "--storage-state=path/to/state.json"
-           ]
-         }
-       }
-     }
-     ```
+```json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--port=3550"
+      ]
+    }
+  }
+}
+```
 
-6. **Advanced Options**
+This tells VS Code (or Cursor) how to launch and connect to the MCP server.
 
-   You can add more CLI flags in the `args` array:
+---
 
-   * `--port <port>` — Specify a custom SSE port
-   * `--headless` — Run without UI
-   * `--device "iPhone 15"` — Emulate a specific device
-   * `--vision` — Enable screenshot-based vision mode
-   * ...and more (see `--help`)
+### 5. Optional: Use Persistent or Isolated Sessions
 
-## .gitignore
+#### Persistent (default)
+
+The browser state is preserved across sessions.
+
+#### Isolated Example
+
+```json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--isolated",
+        "--storage-state=storage/state.json"
+      ]
+    }
+  }
+}
+```
+
+---
+
+### 6. Additional Flags
+
+You can enhance your MCP server using optional flags:
+
+| Flag            | Description                                   |
+| --------------- | --------------------------------------------- |
+| `--port <port>` | Custom port (default is random/OS-assigned)   |
+| `--headless`    | Run without browser UI                        |
+| `--device`      | Emulate a device (e.g., "iPhone 15")          |
+| `--vision`      | Enable screenshot-based vision (if supported) |
+
+Check available flags with:
+
+```bash
+npx playwright-mcp --help
+```
+
+---
+
+## 📅 Note About Browsers
+
+You do **not** need to install `playwright` or run `npx playwright install` separately. The MCP package handles everything required for browser automation.
+
+---
+
+## 📄 .gitignore
 
 ```gitignore
 node_modules/
 .DS_Store
 ```
 
-## Contributing
+---
 
-Feel free to open issues or submit pull requests.
+## 🤝 Contributing
 
-## License
+Pull requests and suggestions are welcome!
+
+---
+
+## 📄 License
 
 [MIT](LICENSE)
