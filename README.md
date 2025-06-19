@@ -1,12 +1,11 @@
 # Playwright MCP Configuration
 
-A collection of configuration files and instructions to get started with the Playwright MCP server using various MCP clients.
+A collection of configuration files and step-by-step instructions to help you launch the Playwright MCP server with various supported clients.
 
 ## Prerequisites
 
 * Node.js v18 or newer
 * One of the following MCP-supported clients:
-
   * VS Code or VS Code Insiders
   * Cursor
   * Windsurf
@@ -14,9 +13,10 @@ A collection of configuration files and instructions to get started with the Pla
 
 ## Repository Contents
 
-* `settings.json` — Example client configuration for launching Playwright MCP
+* `.vscode/settings.json` — VS Code configuration for launching Playwright MCP
+* `package.json` — Defines dependencies including Playwright
 * `README.md` — This file
-* `.gitignore` — Recommended ignore rules
+* `.gitignore` — Recommended ignore rules (e.g., `node_modules/`)
 
 ## Getting Started
 
@@ -27,21 +27,29 @@ A collection of configuration files and instructions to get started with the Pla
    cd playwright-mcp-config
    ```
 
-2. **Install & Launch the MCP Server:**
+2. **Install Dependencies:**
+
+   This installs Playwright and any other listed dev dependencies.
+
+   ```bash
+   npm install
+   ```
+
+3. **Launch the MCP Server:**
 
    ```bash
    npx @playwright/mcp@latest
    ```
 
-   Add `--help` to see other options:
+   You can add `--help` to see available options:
 
    ```bash
    npx @playwright/mcp@latest --help
    ```
 
-3. **Configure your MCP client:**
+4. **MCP Client Configuration (VS Code Example):**
 
-   In your client’s settings (e.g., `settings.json` for VS Code), add:
+   Make sure you have this file in `.vscode/settings.json`:
 
    ```json
    {
@@ -59,10 +67,10 @@ A collection of configuration files and instructions to get started with the Pla
    * **command**: How to invoke the MCP server (`npx`)
    * **args**: Package name and any additional flags
 
-4. **Persistent vs. Isolated Sessions**
+5. **Persistent vs. Isolated Sessions**
 
-   * **Persistent** (default): retains browser profile across sessions.
-   * **Isolated**: fresh profile each session, pass `--isolated` and `--storage-state`:
+   * **Persistent** (default): Retains the browser profile across sessions.
+   * **Isolated**: Starts a fresh profile each session. Use `--isolated` along with `--storage-state=...` to preserve some session data:
 
      ```json
      {
@@ -79,19 +87,19 @@ A collection of configuration files and instructions to get started with the Pla
      }
      ```
 
-5. **Advanced Options**
+6. **Advanced Options**
 
-   Append additional CLI flags in the `args` array:
+   You can add more CLI flags in the `args` array:
 
-   * `--port <port>`: specify custom SSE port
-   * `--headless`: run without UI
-   * `--device "iPhone 15"`: emulate device
-   * `--vision`: enable screenshot-based vision mode
-   * and more (see `--help`)
+   * `--port <port>` — Specify a custom SSE port
+   * `--headless` — Run without UI
+   * `--device "iPhone 15"` — Emulate a specific device
+   * `--vision` — Enable screenshot-based vision mode
+   * ...and more (see `--help`)
 
 ## .gitignore
 
-```
+```gitignore
 node_modules/
 .DS_Store
 ```

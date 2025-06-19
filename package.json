@@ -1,0 +1,22 @@
+{
+  "name": "playwright_mcp",
+  "version": "1.0.0",
+  "description": "A collection of configuration files and instructions to get started with the Playwright MCP server using various MCP clients.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faruklmu17/playwright_mcp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faruklmu17/playwright_mcp/issues"
+  },
+  "homepage": "https://github.com/faruklmu17/playwright_mcp#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.53.1",
+    "@types/node": "^24.0.3"
+  }
+}
